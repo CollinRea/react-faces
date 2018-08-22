@@ -26,6 +26,12 @@ class App extends Component {
     isSignedIn: false
   };
 
+  // componentDidMount() {
+  //   fetch('http://localhost:3001')
+  //     .then(response => response.json())
+  //     .then(console.log)
+  // }
+
   calculateFaceLocation = (data) => {
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
