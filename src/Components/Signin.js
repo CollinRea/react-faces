@@ -1,6 +1,6 @@
 import React from 'react';
 
-class  Signin extends React.Component {
+class Signin extends React.Component {
   state = {
     signInEmail: '',
     signInPassword: ''
@@ -16,7 +16,22 @@ class  Signin extends React.Component {
 
   onSubmitSignIn = () => {
     console.log(this.state);
-    this.props.onRouteChange('home');
+    fetch('http://localhost:3001/signin', {
+      method: 'post',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.state.signInEmail,
+        password: this.state.signInPassword
+      })
+    }).then(response => response.json())
+      .then(user => {
+        if (user.id) {
+          this.props.loadUser(user);
+          this.props.onRouteChange('home');
+        }
+      })
   }
 
   render() {
