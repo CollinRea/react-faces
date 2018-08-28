@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Clarifai from 'clarifai';
 
 import Navigation from './Components/Navigation';
 import Logo from './Components/Logo';
@@ -9,13 +8,8 @@ import FaceRecognition from './Components/FaceRecognition';
 import Signin from './Components/Signin';
 import Register from './Components/Register';
 
-
 import './App.css';
 import 'tachyons';
-
-const app = new Clarifai.App({
-  apiKey: '4b330f174a4949fd8b8ac921be767fe0'
- });
 
 const initialState = {
   input: '',
@@ -65,9 +59,16 @@ class App extends Component {
     this.setState({
       imageUrl: this.state.input
     });
-    app.models.predict(
-      "a403429f2ddf4b49b307e318f00e528b", 
-      this.state.input)
+    fetch('http://localhost:3001/imageurl', {
+      method: 'post',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+    .then(response => response.json())
     .then(response => {
       if (response) {
         fetch('http://localhost:3001/image', {
