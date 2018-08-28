@@ -15,7 +15,6 @@ class Signin extends React.Component {
   }
 
   onSubmitSignIn = () => {
-    console.log(this.state);
     fetch('http://localhost:3001/signin', {
       method: 'post',
       headers:{
@@ -32,6 +31,7 @@ class Signin extends React.Component {
           this.props.onRouteChange('home');
         }
       })
+      .catch(err => console.log(err));
   }
 
   render() {

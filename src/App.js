@@ -17,21 +17,23 @@ const app = new Clarifai.App({
   apiKey: '4b330f174a4949fd8b8ac921be767fe0'
  });
 
+const initialState = {
+  input: '',
+  imageUrl: '',
+  box: [],
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  }
+};
+
 class App extends Component {
-  state = {
-    input: '',
-    imageUrl: '',
-    box: [],
-    route: 'signin',
-    isSignedIn: false,
-    user: {
-      id: '',
-      name: '',
-      email: '',
-      entries: 0,
-      joined: ''
-    }
-  };
+  state = initialState;
 
   calculateFaceLocation = (data) => {
     const image = document.getElementById('inputimage');
@@ -89,9 +91,9 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState(initialState);
     } else if (route === 'home') {
-      this.setState({isSignedIn: true})
+      this.setState({isSignedIn: true});
     }
     this.setState({route});
   }
